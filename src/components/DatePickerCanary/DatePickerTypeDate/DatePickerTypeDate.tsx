@@ -3,12 +3,14 @@ import addMonths from 'date-fns/addMonths';
 import startOfMonth from 'date-fns/startOfMonth';
 
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
+import { useFlag } from '../../../hooks/useFlag/useFlag';
 import { setRef } from '../../../utils/setRef';
 import { DatePickerDropdown } from '../DatePickerDropdown/DatePickerDropdown';
 import { DatePickerFieldTypeDate } from '../DatePickerFieldTypeDate/DatePickerFieldTypeDate';
-import { DatePickerTypeDateComponent } from '../helpers';
+import { DatePickerTypeComponent } from '../helpers';
+import { useCurrentVisibleDate } from '../useCurrentVisibleDate';
 
-export const DatePickerTypeDate: DatePickerTypeDateComponent = forwardRef((props, ref) => {
+export const DatePickerTypeDate: DatePickerTypeComponent<'date'> = forwardRef((props, ref) => {
   const {
     events,
     dateTimeView,
@@ -17,23 +19,26 @@ export const DatePickerTypeDate: DatePickerTypeDateComponent = forwardRef((props
     onFocus,
     currentVisibleDate: currentVisibleDateProp,
     onChangeCurrentVisibleDate: onChangeCurrentVisibleDateProp,
+    renderAdditionalControls,
+    style,
     ...otherProps
   } = props;
 
   const fieldRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
-  const [calendarVisible, setCalendarVisible] = useState<boolean>(false);
+  const [calendarVisible, setCalendarVisible] = useFlag(false);
 
-  const [currentVisibleDate, setCurrentVisibleDate] = useState<Date | undefined>(
+  const [currentVisibleDate, setCurrentVisibleDate] = useCurrentVisibleDate(
     currentVisibleDateProp,
+    onChangeCurrentVisibleDateProp,
   );
 
   const [calendarVisibleDate, setCalendarVisibleDate] = useState<Date | undefined>();
 
   const onFocusHandler = (e: React.FocusEvent<HTMLElement>) => {
     onFocus && onFocus(e);
-    setCalendarVisible(true);
+    setCalendarVisible.on();
   };
 
   useEffect(() => {
@@ -41,14 +46,6 @@ export const DatePickerTypeDate: DatePickerTypeDateComponent = forwardRef((props
       setRef(ref, fieldRef.current);
     }
   }, [ref, fieldRef]);
-
-  useEffect(() => setCurrentVisibleDate(currentVisibleDateProp), [
-    currentVisibleDateProp?.getTime(),
-  ]);
-
-  useEffect(() => currentVisibleDate && onChangeCurrentVisibleDateProp?.(currentVisibleDate), [
-    currentVisibleDate?.getTime(),
-  ]);
 
   useEffect(() => {
     if (props.value && props.dateTimeView === 'classic' && calendarVisibleDate) {
@@ -70,7 +67,7 @@ export const DatePickerTypeDate: DatePickerTypeDateComponent = forwardRef((props
   }, [props.value]);
 
   const handleClose = () => {
-    setCalendarVisible(false);
+    setCalendarVisible.off();
     setCurrentVisibleDate(undefined);
   };
 
@@ -82,13 +79,18 @@ export const DatePickerTypeDate: DatePickerTypeDateComponent = forwardRef((props
 
   return (
     <>
-      <DatePickerFieldTypeDate {...otherProps} ref={fieldRef} onFocus={onFocusHandler} />
+      <DatePickerFieldTypeDate
+        {...otherProps}
+        ref={fieldRef}
+        onFocus={onFocusHandler}
+        style={style}
+      />
       <DatePickerDropdown
         ref={calendarRef}
         anchorRef={fieldRef}
         isOpen={calendarVisible}
         value={props.value || undefined}
-        type={props.type}
+        type="date"
         view={dateTimeView}
         events={events}
         locale={locale}
@@ -100,7 +102,8 @@ export const DatePickerTypeDate: DatePickerTypeDateComponent = forwardRef((props
           props.onChange?.(params);
           handleClose();
         }}
-        renderAdditionalControls={props.renderAdditionalControls}
+        renderAdditionalControls={renderAdditionalControls}
+        zIndex={typeof style?.zIndex === 'number' ? style.zIndex + 1 : undefined}
         onChangeCurrentVisibleDate={setCalendarVisibleDate}
       />
     </>

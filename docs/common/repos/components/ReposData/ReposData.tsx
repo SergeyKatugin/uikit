@@ -32,7 +32,7 @@ export const ReposDataBase = () => {
             as="a"
             view="link"
             size="s"
-            href="https://github.com/gazprom-neft/consta-uikit"
+            href="https://github.com/consta-design-system/uikit"
             target="_blank"
           >
             GitHub
@@ -73,7 +73,7 @@ export const ReposDataBase = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/consta-charts"
+            href="https://github.com/consta-design-system/charts"
             target="_blank"
           >
             GitHub
@@ -128,7 +128,7 @@ export const ReposDataBase = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/consta-widgets-new"
+            href="https://github.com/consta-design-system/widgets"
             target="_blank"
           >
             GitHub
@@ -184,7 +184,7 @@ export const ReposDataSingleComponents = () => {
             as="a"
             view="link"
             size="s"
-            href="https://github.com/gazprom-neft/header"
+            href="https://github.com/consta-design-system/header"
             target="_blank"
           >
             GitHub
@@ -204,7 +204,7 @@ export const ReposDataSingleComponents = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/stats"
+            href="https://github.com/consta-design-system/stats"
             target="_blank"
           >
             GitHub
@@ -234,7 +234,7 @@ export const ReposDataSingleComponents = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/analytic-ui"
+            href="https://github.com/consta-design-system/analytic-ui"
             target="_blank"
           >
             GitHub
@@ -263,7 +263,7 @@ export const ReposDataSingleComponents = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/gpn-responses"
+            href="https://github.com/consta-design-system/gpn-responses"
             target="_blank"
           >
             GitHub
@@ -315,7 +315,7 @@ export const ReposDataAdapters = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/rc-table-adapter"
+            href="https://github.com/consta-design-system/rc-table-adapter"
             target="_blank"
           >
             GitHub
@@ -354,7 +354,7 @@ export const ReposDataAdapters = () => {
             className={cnReposData('Link')}
             as="a"
             view="link"
-            href="https://github.com/gazprom-neft/rc-tree-adapter"
+            href="https://github.com/consta-design-system/rc-tree-adapter"
             target="_blank"
           >
             GitHub
@@ -369,6 +369,70 @@ export const ReposDataAdapters = () => {
           >
             Документация
           </Text>
+        </Text>
+      </div>
+    </div>
+  );
+};
+
+export const ReposDataTemplates = () => {
+  return (
+    <div
+      className={cnDocsDecorator('Section', [
+        wp.tplGrid({ 'xs-columns': 2, 'col-gap': 'full', 'row-gap': 'full' }),
+      ])}
+    >
+      <div className={wp.tplGrid('fraction', { row: 'third' })}>
+        <div>
+          <Text weight="bold" size="l">
+            simple-template
+          </Text>
+        </div>
+        <Text className="ReposDataText">Архетип простого приложения.</Text>
+        <Text
+          className={cnReposData('Link')}
+          as="a"
+          view="link"
+          href="https://github.com/consta-design-system/simple-template"
+          target="_blank"
+        >
+          GitHub
+        </Text>
+      </div>
+      <div className={wp.tplGrid('fraction', { row: 'third' })}>
+        <div>
+          <Text weight="bold" size="l">
+            portal-template
+          </Text>
+        </div>
+        <Text className="ReposDataText">Портальный архетип приложения.</Text>
+        <Text
+          className={cnReposData('Link')}
+          as="a"
+          view="link"
+          href="https://github.com/consta-design-system/portal-template"
+          target="_blank"
+        >
+          GitHub
+        </Text>
+      </div>
+      <div className={wp.tplGrid('fraction', { row: 'third' })}>
+        <div>
+          <Text weight="bold" size="l">
+            portal-template-context
+          </Text>
+        </div>
+        <Text className="ReposDataText">
+          Портальный архетип приложения с контекстной зависимостью.
+        </Text>
+        <Text
+          className={cnReposData('Link')}
+          as="a"
+          view="link"
+          href="https://github.com/consta-design-system/portal-template-context"
+          target="_blank"
+        >
+          GitHub
         </Text>
       </div>
     </div>
